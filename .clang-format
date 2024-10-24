@@ -1,0 +1,38 @@
+UseTab: true
+TabWidth: 8
+IndentWidth: 8
+ColumnLimit: 140
+SortIncludes: false
+IncludeBlocks: Preserve
+PointerAlignment: Left
+
+SpaceBeforeAssignmentOperators: true
+SpaceAfterCStyleCast: true
+SpaceAfterTemplateKeyword: false
+SpacesBeforeTrailingComments: 1
+SpacesInParentheses: false
+SpacesInCStyleCastParentheses: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeParensOptions:
+  AfterControlStatements: true
+  AfterFunctionDefinitionName: true
+  AfterFunctionDeclarationName: true
+
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignArrayOfStructures: Right
+AlignAfterOpenBracket: false
+AlignEscapedNewlines: true
+
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+
+SeparateDefinitionBlocks: Always
+BreakBeforeBraces: Attach
+
+AccessModifierOffset: 0
+IndentAccessModifiers: true
+NamespaceIndentation: All
+FixNamespaceComments: false

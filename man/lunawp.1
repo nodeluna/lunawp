@@ -1,0 +1,66 @@
+.TH LUNAWP "1" "Oct 2024"
+
+.SH  NAME
+.B lunawp
+-  a tool that changes your wallpaper if your workspace changes
+
+.SH SYNOPSIS
+.B lunawp [OPTION] [ARG]
+
+.SH DESCRIPTION
+.B lunawp relies on 'swww' to change the wallpaper, you need to run this command 'swww-daemon' before running lunawp
+
+.SH USAGE
+
+.B swww-daemon
+.br
+.B lunawp -c hyprland -d /path/to/imgs_dir
+
+.SH OPTIONS
+
+.TP
+.B [-c] <name>
+
+the name of the compositor/window-manager. hyprland, sway and qtile are supported
+
+.TP
+.B [-d] <path>
+
+the directory where the images are
+
+.TP
+.B [-V, --version]
+
+print the program's version
+
+.TP
+.B [--author]
+
+print the program's author
+
+.TP
+.B
+[--license]
+
+print the program's license
+
+.TP
+.B [-h, --help]
+
+print the help statement
+
+
+.SH BUGS
+You could report bugs and request features at https://github.com/nodeluna/lunawp/issues
+
+.SH COPYRIGHT
+copyright © 2024 nodeluna
+
+licese GPLv3+: GNU GPL version 3 or later. https://www.gnu.org/licenses/gpl-3.0.en.html
+
+.SH AUTHOR
+.PP 
+
+nodeluna - nodeluna@proton.me
+
+https://github.com/nodeluna
