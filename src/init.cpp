@@ -3,11 +3,14 @@
 #include <print>
 #include <string_view>
 #include <unistd.h>
+#include <chrono>
+#include <thread>
 #include "init.h"
 #include "data.h"
 #include "cmd.h"
 #include "log.h"
 #include "change_wallpaper.h"
+#include "socks.h"
 
 namespace lunawp {
 	namespace str {
@@ -20,20 +23,6 @@ namespace lunawp {
 }
 
 namespace lunawp {
-	namespace hyprland {
-		std::string get_active_workspace(void) {
-			std::string command = "hyprctl activeworkspace -j";
-			auto	    output  = lunawp::cmd(command);
-			if (not output) {
-				auto _ = lunawp::err_clr();
-				std::println("-[X] couldn't execute command '{}', {}", command, output.error().message());
-			}
-
-			std::string id = "\"id\": ";
-			return lunawp::str::substr(output.value(), id, ",");
-		}
-	}
-
 	namespace sway {
 		std::string get_active_workspace(void) {
 			std::string command = "swaymsg -t get_workspaces -p";
@@ -77,9 +66,7 @@ namespace lunawp {
 namespace lunawp {
 	std::expected<std::string, int> get_active_workspace(const std::string_view& wm) {
 		std::string num;
-		if (wm == "hyprland")
-			num = lunawp::hyprland::get_active_workspace();
-		else if (wm == "sway")
+		if (wm == "sway")
 			num = lunawp::sway::get_active_workspace();
 		else if (wm == "qtile")
 			num = lunawp::qtile::get_active_workspace();
@@ -111,7 +98,7 @@ namespace lunawp {
 				temp_active_workspace.clear();
 			}
 
-			usleep(lunawp::config::sleep_time);
+			std::this_thread::sleep_for(std::chrono::microseconds(lunawp::config::sleep_time));
 		}
 	}
 
@@ -145,6 +132,9 @@ namespace lunawp {
 			return 1;
 		}
 
-		return lunawp::run(imgs, lunawp_data.wm);
+		if (lunawp_data.wm == "hyprland")
+			return lunawp::socks::hyprland::run(imgs);
+		else
+			return lunawp::run(imgs, lunawp_data.wm);
 	}
 }

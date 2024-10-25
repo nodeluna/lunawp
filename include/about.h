@@ -5,6 +5,8 @@
 
 namespace lunawp {
 	namespace about {
+		inline std::string version = "\n  -> lunawp 0.1.1";
+
 		inline std::string help = "-> a tool that changes your wallpaper if your workspace changes"
 					  "\n"
 					  "         _\n"
@@ -35,8 +37,6 @@ namespace lunawp {
 					  "\n"
 					  "    [-h, --help]\n"
 					  "        print this help statement\n";
-
-		inline std::string version = "\n  -> lunawp 0.1";
 
 		inline std::string license = "\n  -> GPLv3+\n"
 					     "  -> This program is distributed in the hope that it will be useful,\n"
