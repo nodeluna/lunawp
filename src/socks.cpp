@@ -16,15 +16,12 @@
 namespace lunawp {
 	namespace socks {
 		namespace hyprland {
-			std::string get_active_workspace(const std::string& msg) {
-				std::string	  active;
+			bool get_active_workspace(const std::string_view& msg) {
 				const std::string event = "workspace>>";
-				if (size_t i = msg.find(event); i != msg.npos && i == 0)
-					active = msg.substr(i + event.size(), msg.find('\n') - (i + event.size()));
+				if (size_t i = msg.find(event); i != msg.npos && (i == 0 || (i > 0 && msg[i-1] == '\n')))
+					return true;
 				else
-					return "";
-
-				return active;
+					return false;
 			}
 
 			int run(const std::vector<std::string>& imgs) {
@@ -59,7 +56,8 @@ namespace lunawp {
 
 				std::array<char, 16384> buffer;
 				int			bytes_read;
-				std::string		active_workspace;
+				bool			active_workspace;
+				size_t			previous_index;
 
 				while (true) {
 					bytes_read = read(sock, buffer.data(), buffer.size());
@@ -75,10 +73,12 @@ namespace lunawp {
 
 					active_workspace =
 					    lunawp::socks::hyprland::get_active_workspace(std::string(buffer.data(), bytes_read));
-					if (not active_workspace.empty())
-						lunawp::change_wallpaper(imgs);
 
-					std::this_thread::sleep_for(std::chrono::microseconds(100));
+					if (active_workspace)
+						previous_index = lunawp::change_wallpaper(imgs, previous_index);
+
+
+					std::this_thread::sleep_for(std::chrono::microseconds(200));
 				}
 
 				return 0;

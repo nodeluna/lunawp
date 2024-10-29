@@ -45,14 +45,18 @@ namespace lunawp {
 		return imgs;
 	}
 
-	void change_wallpaper(const std::vector<std::string>& imgs) {
+	size_t change_wallpaper(const std::vector<std::string>& imgs, const size_t& previous) {
 		std::random_device		rand;
 		std::mt19937			gen(rand());
 		std::uniform_int_distribution<> dis(0, imgs.size() - 1);
 		size_t				index = dis(gen);
-		std::string			command =
+		if (previous == index)
+			index = index / 2;
+		std::string command =
 		    std::format("swww img '{}' --transition-step 255 --transition-fps 255 1> /dev/null 2> /dev/null", imgs[index]);
 
 		system(command.c_str());
+
+		return index;
 	}
 }
