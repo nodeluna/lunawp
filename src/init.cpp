@@ -86,7 +86,7 @@ namespace lunawp {
 
 	int run(const std::vector<std::string>& imgs, const std::string_view& wm) {
 		std::string temp_active_workspace;
-		size_t	    previous_index;
+		size_t	    previous_index = 0;
 		while (true) {
 			auto active_workspace = lunawp::get_active_workspace(wm);
 			if (not active_workspace)

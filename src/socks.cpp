@@ -18,7 +18,7 @@ namespace lunawp {
 		namespace hyprland {
 			bool get_active_workspace(const std::string_view& msg) {
 				const std::string event = "workspace>>";
-				if (size_t i = msg.find(event); i != msg.npos && (i == 0 || (i > 0 && msg[i-1] == '\n')))
+				if (size_t i = msg.find(event); i != msg.npos && (i == 0 || msg[i - 1] == '\n'))
 					return true;
 				else
 					return false;
@@ -55,9 +55,9 @@ namespace lunawp {
 				}
 
 				std::array<char, 16384> buffer;
+				size_t			previous_index = 0;
 				int			bytes_read;
 				bool			active_workspace;
-				size_t			previous_index;
 
 				while (true) {
 					bytes_read = read(sock, buffer.data(), buffer.size());
@@ -76,7 +76,6 @@ namespace lunawp {
 
 					if (active_workspace)
 						previous_index = lunawp::change_wallpaper(imgs, previous_index);
-
 
 					std::this_thread::sleep_for(std::chrono::microseconds(200));
 				}

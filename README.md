@@ -12,6 +12,10 @@
     $ make clean
     # make uninstall
 
+## installation with nix flakes
+
+    $ nix profile install github:nodeluna/lunawp
+
 ## dependencies
 
     gcc >= 14 or clang >= 17
